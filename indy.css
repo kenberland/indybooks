@@ -1,0 +1,48 @@
+#indy {
+  height: 3em;
+  display: block;
+  margin-left: 0;
+  vertical-align: middle;
+  text-align: center;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
+  border-radius: 2px;
+  background: linear-gradient(to bottom,#f6c88f,#ed9220);
+  cursor: pointer;
+}
+#indy:hover {
+  background: linear-gradient(to bottom,#f6c88f,#d47d11);
+}
+
+#indyText {
+  line-height: 3em;
+}
+
+#indyReceiptContent {
+  z-index: 600;
+  opacity: 1.0;
+  position: absolute;
+  width: 70%;
+  height: 50%;
+  top: 25%;
+  left: 15%;
+  background-color: white;
+  border: 1px black solid;
+  text-align: center;
+  display: block;
+  vertical-align: middle;
+}
+
+#indyWhitePane {
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  display: block;
+  position: absolute;
+  background: white;
+  opacity: 0.5;
+}
