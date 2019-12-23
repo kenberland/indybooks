@@ -1,0 +1,38 @@
+{
+  "name": "Independent Bookseller",
+  "version": "1.0",
+  "description": "The Independent Bookseller Amazon.com extension adds a buy button for your favorite local bookshop",
+  "background": {
+    "scripts": ["./background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  },
+  "manifest_version": 2,
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "content_scripts": [
+      {
+	"matches": ["https://*.amazon.com/*"],
+	"js": [ "./buy-button.js", "jquery.min.js"],
+	"css": [ "./indy.css"],
+	"run_at": "document_end"
+      }
+  ],
+  "web_accessible_resources": [
+    "templates/modal.html"
+    ]
+}
