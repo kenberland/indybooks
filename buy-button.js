@@ -9,10 +9,14 @@ var indyBooks = {
   },
   showModal: function(html){
     console.log(html);
+    chrome.runtime.sendMessage("https://indybooks.s3.amazonaws.com/stores.json");
     var body = document.getElementsByTagName("BODY")[0];
     var new_nodes = jQuery.parseXML(html)
 	.firstElementChild
     var insertedNode = body.insertBefore(new_nodes, body.firstChild);
+  },
+  populateModal: function(foo){
+    console.log("populate modal " + foo);
   },
   dismissModal: function(){
     console.log("FOO");

@@ -23,7 +23,7 @@
 }
 
 #indyReceiptContent {
-  z-index: 600;
+  z-index: 501;
   opacity: 1.0;
   position: absolute;
   width: 70%;
