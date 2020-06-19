@@ -33,7 +33,7 @@
       }
   ],
   "web_accessible_resources": [
-    "templates/modal.html"
+    "templates/modal.html",
     "templates/stores.json"
     ]
 }
