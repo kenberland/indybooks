@@ -10,6 +10,7 @@ var indyBooks = {
   showModal: function(html){
     console.log(html);
     const url = chrome.runtime.getURL("templates/stores.json");
+    debugger;
     var body = document.getElementsByTagName("BODY")[0];
     var new_nodes = jQuery.parseXML(html)
 	.firstElementChild
