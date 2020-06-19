@@ -17,8 +17,7 @@ var indyBooks = {
     var insertedNode = body.insertBefore(new_nodes, body.firstChild);
     fetch(url)
       .then(function(response) {
-        debugger;
-	response.text();
+        response.text().then((data) => console.log(data));
       });
   },
   populateModal: function(foo){
