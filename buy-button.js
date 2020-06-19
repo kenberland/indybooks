@@ -17,12 +17,11 @@ var indyBooks = {
     var insertedNode = body.insertBefore(new_nodes, body.firstChild);
     fetch(url)
       .then(function(response) {
-        response.text().then((data) => indyBooks.booksInLocalStorage(data));
+        response.text().then((data) => indyBooks.testStoresInLocalStorage(data));
       });
   },
-  booksInLocalStorage: function(json){
-    debugger;
-    localStorage.setItem('my_key', JSON.stringify(json));
+  testStoresInLocalStorage: function(json){
+    localStorage.setItem('indybooks:stores', json);
   },
   populateModal: function(foo){
     console.log("populate modal " + foo);
