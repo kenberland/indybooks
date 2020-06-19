@@ -19,6 +19,16 @@
       "zip": "94704",
       "area_code": "925",
       "phone": "258-9076"
+    },
+    {
+      "id": 3,
+      "name": "Dog Eared Books"
+      "address": "900 Valencia St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94110",
+      "area_code": "415",
+      "phone": "282-1901"
     }
   ]
 }

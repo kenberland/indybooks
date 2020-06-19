@@ -14,6 +14,7 @@ var indyBooks = {
     var new_nodes = jQuery.parseXML(html)
 	.firstElementChild
     var insertedNode = body.insertBefore(new_nodes, body.firstChild);
+    debugger;
   },
   populateModal: function(foo){
     console.log("populate modal " + foo);
