@@ -21,7 +21,7 @@ var indyBooks = {
       });
   },
   booksInLocalStorage: function(json){
-    localStorage('my_key', JSON.stringify(json));
+    localStorage.setItem('my_key', JSON.stringify(json));
   },
   populateModal: function(foo){
     console.log("populate modal " + foo);
