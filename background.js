@@ -19,7 +19,6 @@ chrome.runtime.onInstalled.addListener(function() {
   });
   chrome.runtime.onMessage.addListener(
     function(url) {
-      debugger;
       console.log("downloading " + url);
       chrome.downloads.download({
 	url: url,
