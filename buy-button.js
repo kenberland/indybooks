@@ -9,12 +9,16 @@ var indyBooks = {
   },
   showModal: function(html){
     console.log(html);
-    const url = chrome.runtime.getURL("templates/stores.json");
-    debugger;
+    var address = document.getElementById('contextualIngressPtLabel_deliveryShortLine').children[1].innerText;
+    var zipCode = address.substring(address.length - 5);
+
     var body = document.getElementsByTagName("BODY")[0];
-    var new_nodes = jQuery.parseXML(html)
+    var newNodes = jQuery.parseXML(html)
 	.firstElementChild
-    var insertedNode = body.insertBefore(new_nodes, body.firstChild);
+    debugger;
+    var insertedNode = body.insertBefore(newNodes, body.firstChild);
+
+    const url = chrome.runtime.getURL("templates/stores.json");
     fetch(url)
       .then(function(response) {
         response.text().then((data) => indyBooks.testStoresInLocalStorage(data));
