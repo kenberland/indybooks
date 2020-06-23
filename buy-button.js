@@ -9,11 +9,25 @@ var indyBooks = {
   },
   showModal: function(html){
     console.log(html);
-    chrome.runtime.sendMessage("https://indybooks.s3.amazonaws.com/stores.json");
+    var address = document.getElementById('contextualIngressPtLabel_deliveryShortLine').children[1].innerText;
+    var zipCode = address.substring(address.length - 6);
+    console.log(zipCode);
+
+    // Body needs to be an entry into a vuejs template that we can render zipCode into
     var body = document.getElementsByTagName("BODY")[0];
-    var new_nodes = jQuery.parseXML(html)
+    var newNodes = jQuery.parseXML(html)
 	.firstElementChild
-    var insertedNode = body.insertBefore(new_nodes, body.firstChild);
+    var insertedNode = body.insertBefore(newNodes, body.firstChild);
+
+    // Right now, the easiest thing I could do is put the stores.json into a localStorage key to test.
+    const url = chrome.runtime.getURL("templates/stores.json");
+    fetch(url)
+      .then(function(response) {
+        response.text().then((data) => indyBooks.testStoresInLocalStorage(data));
+      });
+  },
+  testStoresInLocalStorage: function(json){
+    localStorage.setItem('indybooks:stores', json);
   },
   populateModal: function(foo){
     console.log("populate modal " + foo);

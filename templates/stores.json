@@ -8,11 +8,11 @@
       "state": "CA",
       "zip": "94705",
       "area_code": "510",
-      "phone": "704-8222",
+      "phone": "704-8222"
     },
     {
       "id": 2,
-      "name": "Sleepy Cat Books"
+      "name": "Sleepy Cat Books",
       "address": "2509 Telegraph Ave",
       "city": "Berkeley",
       "state": "CA",
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "name": "Dog Eared Books"
+      "name": "Dog Eared Books",
       "address": "900 Valencia St",
       "city": "San Francisco",
       "state": "CA",
