@@ -1,20 +1,20 @@
 <template>
-  <div>
-    <transition name="modal">
-      <div v-if="isOpen">
-        <div class="overlay" @click.self="isOpen = false;">
-          <buy-modal />
-        </div>
+<div>
+  <transition name="modal">
+    <div v-if="isOpen">
+      <div class="overlay" @click.self="isOpen = false;">
+        <buy-modal />
       </div>
-    </transition>
-    <div id='indyRef' href='foo.com' @click="isOpen = !isOpen;">
-      <div id='indy'>
-        <div id='indyText'>
-          Buy at Ms. Dalloway's
-        </div>
+    </div>
+  </transition>
+  <div id='indyRef' @click="loadModal">
+    <div id='indy'>
+      <div id='indyText'>
+        Buy at your local bookstore
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -28,6 +28,11 @@ export default Vue.extend({
     return {
       isOpen: false,
     };
+  },
+  methods: {
+    loadModal(): void {
+      this.isOpen = !this.isOpen;
+    },
   },
 });
 </script>
@@ -43,6 +48,7 @@ export default Vue.extend({
   transition: all 0.2s ease-in;
   font-family: Helvetica, Arial, sans-serif;
 }
+
 .fadeIn-enter {
   opacity: 0;
 }
@@ -53,6 +59,7 @@ export default Vue.extend({
 }
 
 .fadeIn-enter .modal,
+
 .fadeIn-leave-active.modal {
   transform: scale(1.1);
 }
@@ -70,8 +77,9 @@ export default Vue.extend({
   z-index: 999;
   transition: opacity 0.2s ease;
 }
+
 #indy {
-  height: 3em;
+  height: 2.5em;
   display: block;
   margin-left: 0;
   vertical-align: middle;
@@ -86,12 +94,13 @@ export default Vue.extend({
   background: linear-gradient(to bottom,#f6c88f,#ed9220);
   cursor: pointer;
 }
+
 #indy:hover {
   background: linear-gradient(to bottom,#f6c88f,#d47d11);
 }
 
 #indyText {
-  line-height: 3em;
+  line-height: 2.5em;
 }
 
 #indyReceiptContent {
