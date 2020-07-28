@@ -13,7 +13,9 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'BuyModal',
-  props: ['stores'],
+  props: {
+    stores: Array,
+  },
 });
 </script>
 
