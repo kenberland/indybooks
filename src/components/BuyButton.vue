@@ -3,13 +3,13 @@
   <transition name='modal'>
     <div v-if="isOpen">
       <div class='overlay' @click.self="isOpen = false;">
-        <buy-modal :stores="localStores" />
+        <buy-modal :stores="localStores" :productName="productName" />
       </div>
     </div>
   </transition>
   <div id='indyRef' @click="loadModal">
-    <div id='indy'>
-      <div id='indyText'>
+    <div id='indy' class='indy-button'>
+      <div id='indyText' class='indy-text'>
         Buy at your local bookstore
       </div>
     </div>
@@ -21,26 +21,32 @@
 import Vue from 'vue';
 import BuyModal from '@/components/BuyModal.vue';
 
+// localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
 export default Vue.extend({
   name: 'BuyButton',
   components: { BuyModal },
   data() {
     return {
       isOpen: false,
+      productName: '',
       localStores: [
-        { name: 'Dog Eared Books' },
+        { name: 'Dog Eared Books', address: '489 Castro St. San Francisco, CA 94114' },
+        { name: "Mrs Dalloway's", address: '2904 College Ave. Berkely, CA 94705' },
+        { name: 'Sleepy Cat Books', address: '2509 Telegraph Ave. Berkely, CA 94704' },
       ],
     };
   },
   methods: {
     loadModal(): void {
       this.isOpen = !this.isOpen;
+      this.productName = document.getElementById('productTitle').textContent || '';
     },
   },
 });
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import '@/scss/indy-buttons.scss';
 .modal {
   width: 500px;
   margin: 0px auto;
@@ -79,31 +85,6 @@ export default Vue.extend({
   background: #00000094;
   z-index: 999;
   transition: opacity 0.2s ease;
-}
-
-#indy {
-  height: 2.5em;
-  display: block;
-  margin-left: 0;
-  vertical-align: middle;
-  text-align: center;
-  border-color: #a88734 #9c7e31 #846a29;
-  color: #111;
-  display: block;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
-  border-radius: 2px;
-  background: linear-gradient(to bottom,#f6c88f,#ed9220);
-  cursor: pointer;
-}
-
-#indy:hover {
-  background: linear-gradient(to bottom,#f6c88f,#d47d11);
-}
-
-#indyText {
-  line-height: 2.5em;
 }
 
 #indyReceiptContent {
