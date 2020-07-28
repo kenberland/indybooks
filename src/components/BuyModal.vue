@@ -1,7 +1,10 @@
 <template>
-  <div class="indy-modal">
+  <div class='indy-modal'>
     <h1>Hi</h1>
     <p>List of books here plz</p>
+    <div v-for="store in stores" :key="store.name">
+      {{ store.name }}
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,7 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'BuyModal',
+  props: ['stores'],
 });
 </script>
 

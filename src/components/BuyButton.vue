@@ -1,9 +1,9 @@
 <template>
 <div>
-  <transition name="modal">
+  <transition name='modal'>
     <div v-if="isOpen">
-      <div class="overlay" @click.self="isOpen = false;">
-        <buy-modal />
+      <div class='overlay' @click.self="isOpen = false;">
+        <buy-modal :stores="localStores" />
       </div>
     </div>
   </transition>
@@ -27,6 +27,9 @@ export default Vue.extend({
   data() {
     return {
       isOpen: false,
+      localStores: [
+        { name: 'Dog Eared Books' },
+      ],
     };
   },
   methods: {
