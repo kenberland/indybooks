@@ -47,6 +47,7 @@ window.onload = function() {
     }
   });
 
+  var buyNewInner = document.getElementById('buyNow_feature_div');
   var foo = "hello world";
   var new_html = '<a id="indyRef" href="foo.com"><div id="indy"><div id="indyText">Buy at Ms. Dalloway\'s</div></div></a>';
   var new_nodes = jQuery.parseXML(new_html)
