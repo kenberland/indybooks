@@ -1,0 +1,24 @@
+.indy-button {
+  height: 2.5em;
+  display: block;
+  margin-left: 0;
+  vertical-align: middle;
+  text-align: center;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
+  border-radius: 2px;
+  background: linear-gradient(to bottom,#f6c88f,#ed9220);
+  cursor: pointer;
+}
+
+.indy-button:hover {
+  background: linear-gradient(to bottom,#f6c88f,#d47d11);
+}
+
+.indy-text {
+  line-height: 2.5em;
+}
