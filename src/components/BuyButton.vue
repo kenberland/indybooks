@@ -20,6 +20,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import BuyModal from '@/components/BuyModal.vue';
+import axios from 'axios';
 
 // localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
 export default Vue.extend({
@@ -29,17 +30,22 @@ export default Vue.extend({
     return {
       isOpen: false,
       productName: '',
-      localStores: [
-        { name: 'Dog Eared Books', address: '489 Castro St. San Francisco, CA 94114' },
-        { name: "Mrs Dalloway's", address: '2904 College Ave. Berkely, CA 94705' },
-        { name: 'Sleepy Cat Books', address: '2509 Telegraph Ave. Berkely, CA 94704' },
-      ],
+      localStores: [],
     };
   },
   methods: {
     loadModal(): void {
       this.isOpen = !this.isOpen;
       this.productName = document.getElementById('productTitle').textContent || '';
+      axios
+        .get('https://api.indybooks.net/storeList')
+        .then((response) => {
+          this.localStores = JSON.parse(response.data).stores;
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 });
