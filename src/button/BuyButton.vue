@@ -19,13 +19,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import BuyModal from '@/components/BuyModal.vue';
 import axios from 'axios';
+import BuyModal from './BuyModal.vue';
 
 // localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
 export default Vue.extend({
   name: 'BuyButton',
   components: { BuyModal },
+  props: {
+    isbn: String,
+  },
   data() {
     return {
       isOpen: false,
@@ -38,7 +41,7 @@ export default Vue.extend({
       this.isOpen = !this.isOpen;
       this.productName = document.getElementById('productTitle').textContent || '';
       axios
-        .get('https://api.indybooks.net/v1/storeList')
+        .get('https://api.indybooks.net/v1/stores')
         .then((response) => {
           this.localStores = response.data.stores;
           console.log(response);

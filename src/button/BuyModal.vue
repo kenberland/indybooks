@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Store from '@/components/Store.vue';
+import Store from './Store.vue';
 
 export default Vue.extend({
   name: 'BuyModal',

@@ -1,14 +1,14 @@
 <template>
-  <hello-world />
+<choose-bookstore />
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue';
+import ChooseBookstore from './ChooseBookstore.vue';
 
 export default Vue.extend({
   name: 'App',
-  components: { HelloWorld },
+  components: { ChooseBookstore },
 });
 </script>
 

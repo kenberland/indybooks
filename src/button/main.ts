@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 
 /* eslint-disable no-new */
+
 window.onload = () => {
   const newButton = document.createElement('div');
   newButton.setAttribute('id', 'indyButton');
