@@ -1,22 +1,13 @@
 <template>
 <div class='indy-modal'>
-  <header class='indy-modal-header'>
-    <div><h4>Buy Local: {{ productName }}</h4></div>
-  </header>
-  <div class='indy-modal-body'>
-    <table>
-      <thead>
-        <tr>
-          <th style='padding-bottom: 1em;'>Store Name</th>
-          <th style='padding-bottom: 1em;'>Address</th>
-          <th style='padding-bottom: 1em;'></th>
-        </tr>
-      </thead>
-      <tbody v-for="store in stores" :key="store.name">
-        <store :store="store" />
-      </tbody>
-    </table>
-  </div>
+  <nav class='panel'>
+    <div class='indy-modal-header panel-heading'>
+      <div><h4>Buy Local: {{ productName }}</h4></div>
+    </div>
+    <a class='panel-block' v-for="store in stores" :key="store.name">
+      <store :store="store" />
+    </a>
+  </nav>
 </div>
 </template>
 
@@ -43,10 +34,6 @@ export default Vue.extend({
   box-shadow: 0 2px 8px 3px;
   transition: all 0.2s ease-in;
   font-family: Helvetica, Arial, sans-serif;
-}
-
-.indy-modal-body {
-  padding: 20px;
 }
 
 .indy-modal-header {

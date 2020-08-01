@@ -1,15 +1,21 @@
 <template>
-<tr class='indy-store'>
-  <td style='border-top: 1px solid #e7e7e7; padding-top: 0.5em;'> {{ store.name }} </td>
-  <td style='border-top: 1px solid #e7e7e7; padding-top: 0.5em;'> {{ store.address }} </td>
-  <td>
+<div class='store columns is-mobile'>
+  <div class='column is-6 is-offset-1'>
+    <div class='store-name'>
+      <h4>{{ store.name }}</h4>
+    </div>
+    <div class='store-address'>
+      {{ store.address }}
+    </div>
+  </div>
+  <div class='column is-3 is-offset-2'>
     <div class='indy-button'>
       <div class='indy-text'>
         Buy Local!
       </div>
     </div>
-  </td>
-</tr>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -25,4 +31,7 @@ export default Vue.extend({
 
 <style lang='scss' scoped>
 @import '@/scss/indy-buttons.scss';
+.store {
+    width: 100%;
+}
 </style>
