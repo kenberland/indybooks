@@ -14,7 +14,10 @@ export default Vue.extend({
 
 <style>
 html {
-  width: 400px;
+  width: 350px;
   height: 400px;
+}
+body {
+    margin: 0;
 }
 </style>

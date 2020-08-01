@@ -41,7 +41,7 @@ export default Vue.extend({
       this.isOpen = !this.isOpen;
       this.productName = document.getElementById('productTitle').textContent || '';
       axios
-        .get('https://api.indybooks.net/v1/stores')
+        .get('https://api.indybooks.net/v2')
         .then((response) => {
           this.localStores = response.data.stores;
           console.log(response);

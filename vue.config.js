@@ -5,11 +5,6 @@ module.exports = {
       entry: './src/popup/main.ts',
       title: 'Popup',
     },
-    options: {
-      template: 'public/browser-extension.html',
-      entry: './src/options/main.ts',
-      title: 'Options',
-    },
     button: {
       template: 'public/browser-extension.html',
       entry: './src/button/main.ts',
