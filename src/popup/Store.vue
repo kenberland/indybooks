@@ -1,16 +1,16 @@
 <template>
-<div class='store-list'>
-  <div class='store'>
+<div class='store columns is-mobile'>
+  <div class='column is-7'>
     <div class='store-name'>
       <h4>{{ store.name }}</h4>
     </div>
     <div class='store-address'>
       {{ store.address }}
     </div>
-    <div class='select-store'>
-
-    </div>
-</div>
+  </div>
+  <div class='column is-3 is-offset-2'>
+    <b-switch v-model="isLocal" @input="setLocal" />
+  </div>
 </div>
 </template>
 
@@ -22,24 +22,29 @@ export default Vue.extend({
   props: {
     store: Object,
   },
+  data() {
+    return {
+      isLocal: '',
+    };
+  },
+  methods: {
+    setLocal(): void {
+      debugger;
+      const indyStores = chrome.storage.sync.get(['indystores'], (obj) => {
+        obj.indystores.stores.forEach((item, index) => {
+          debugger;
+        });
+      });
+    },
+  },
 });
 </script>
 
 <style lang="scss">
-.store-list {
-}
 .store {
-    border-bottom: 1px solid #e7e7e7;
-    height: 45px;
-    padding: 15px 18px;
-    &:hover {
-        background-color: #f5f5f5;
-    }
+    width: 100%;
 }
-.store-name {
-    margin-top: 5px;
-    h4 {
-        margin: 0;
-    }
+.store-address {
+    font-size: 0.75em;
 }
 </style>

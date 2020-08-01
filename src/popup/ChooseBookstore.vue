@@ -1,14 +1,14 @@
 <template>
-<div>
-  <div class='container'>
-    <div class='search-container'>
+<div class='container'>
+  <nav class='panel'>
+    <div class='panel-heading'>
        <!-- eslint-disable-next-line max-len -->
        <the-mask class='search-input' :mask="'#####'"  placeholder='Search by Zip' v-model.number="zip" @input="getStores" />
     </div>
-  </div>
-  <div class='store-container' v-for="store in stores" :key="store.name">
-    <store :store="store" />
-  </div>
+    <a class='panel-block' v-for="store in stores" :key="store.name">
+      <store :store="store" />
+    </a>
+  </nav>
 </div>
 </template>
 
@@ -46,15 +46,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.container {
-    background-color: #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
-    height: 50px;
-    line-height: 30px;
-}
-.search-container {
-    padding: 12px 18px;
-}
 .search-input {
     background-color: transparent;
     border: none;
