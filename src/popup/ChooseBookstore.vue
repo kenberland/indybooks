@@ -24,12 +24,14 @@ export default Vue.extend({
   data() {
     return {
       zip: '',
-      stores: Array(),
+      stores: [],
     };
   },
   methods: {
     getStores(): void {
       if (this.zip.toString().length === 5) {
+        chrome.storage.sync.set({ indystoresZip: this.zip });
+
         axios
           .get('https://api.indybooks.net/v4/stores')
           .then((response) => {
