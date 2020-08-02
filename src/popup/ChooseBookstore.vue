@@ -22,9 +22,10 @@ export default Vue.extend({
   name: 'App',
   components: { Store, TheMask },
   data() {
+    const stores:any[] = [];
     return {
       zip: '',
-      stores: [],
+      stores,
     };
   },
   methods: {

@@ -23,10 +23,11 @@ export default Vue.extend({
     store: Object,
   },
   data() {
+    const syncedStores:any[] = [];
     return {
       isLocal: false,
       hasBeenStored: false,
-      syncedStores: [],
+      syncedStores,
     };
   },
   methods: {
