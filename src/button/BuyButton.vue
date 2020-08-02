@@ -19,7 +19,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import axios from 'axios';
 import BuyModal from './BuyModal.vue';
 
 // localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
@@ -28,27 +27,23 @@ export default Vue.extend({
   components: { BuyModal },
   props: {
     isbn: String,
+    productName: String,
   },
   data() {
     return {
       isOpen: false,
-      productName: '',
       localStores: [],
     };
   },
   methods: {
     loadModal(): void {
       this.isOpen = !this.isOpen;
-      this.productName = document.getElementById('productTitle').textContent || '';
-      axios
-        .get('https://api.indybooks.net/v2')
-        .then((response) => {
-          this.localStores = response.data.stores;
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+
+      chrome.storage.sync.get(['indystores'], (obj: any) => {
+        if (obj.indystores !== undefined) {
+          this.localStores = obj.indystores.stores;
+        }
+      });
     },
   },
 });

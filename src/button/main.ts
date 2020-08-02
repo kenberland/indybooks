@@ -10,7 +10,7 @@ window.onload = () => {
   newButton.setAttribute('id', 'indyButton');
 
   const buyNewInner = document.getElementById('buyNow_feature_div');
-  if (buyNewInner !== undefined) {
+  if (buyNewInner) {
     buyNewInner.insertAdjacentElement('afterend', newButton);
   }
 

@@ -24,18 +24,49 @@ export default Vue.extend({
   },
   data() {
     return {
-      isLocal: '',
+      isLocal: false,
+      hasBeenStored: false,
+      syncedStores: Array(),
     };
   },
   methods: {
     setLocal(): void {
-      debugger;
-      const indyStores = chrome.storage.sync.get(['indystores'], (obj) => {
-        obj.indystores.stores.forEach((item, index) => {
-          debugger;
+      chrome.storage.sync.get(['indystores'], (obj: any) => {
+        this.hasBeenStored = false;
+
+        if (obj.indystores !== undefined) {
+          this.syncedStores = obj.indystores.stores;
+        }
+
+        this.syncedStores.forEach((item: any, index: number) => {
+          if (item.id === this.store.id) {
+            if (!this.isLocal) {
+              this.syncedStores.splice(index, 1);
+            }
+            this.hasBeenStored = true;
+          }
         });
+
+        if (this.isLocal && !this.hasBeenStored) {
+          this.syncedStores.push(this.store);
+        }
+
+        chrome.storage.sync.set({ indystores: { stores: this.syncedStores } });
       });
     },
+  },
+  beforeMount() {
+    chrome.storage.sync.get(['indystores'], (obj: any) => {
+      if (obj.indystores !== undefined) {
+        obj.indystores.stores.forEach((item: any) => {
+          if (item.id === this.store.id) {
+            this.isLocal = true;
+          }
+        });
+      } else {
+        this.isLocal = false;
+      }
+    });
   },
 });
 </script>

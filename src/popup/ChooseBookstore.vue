@@ -24,23 +24,43 @@ export default Vue.extend({
   data() {
     return {
       zip: '',
-      stores: [],
+      stores: Array(),
     };
   },
   methods: {
     getStores(): void {
       if (this.zip.toString().length === 5) {
         axios
-          .get('https://api.indybooks.net/v2')
+          .get('https://api.indybooks.net/v4/stores')
           .then((response) => {
-            this.stores = response.data.stores;
-            console.log(response);
+            response.data.stores.forEach((item: any) => {
+              let foundStore = false;
+
+              this.stores.forEach((store: any) => {
+                if (store.id === item.id) {
+                  foundStore = true;
+                }
+              });
+
+              if (!foundStore) {
+                this.stores.push(item);
+              }
+            });
           })
           .catch((error) => {
             console.log(error);
           });
       }
     },
+  },
+  beforeMount() {
+    chrome.storage.sync.get(['indystores'], (obj: any) => {
+      if (obj.indystores !== undefined) {
+        obj.indystores.stores.forEach((item: any) => {
+          this.stores.push(item);
+        });
+      }
+    });
   },
 });
 </script>

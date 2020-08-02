@@ -20,6 +20,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@types/chrome": "0.0.122",
     "@types/firefox-webext-browser": "^67.0.2",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
