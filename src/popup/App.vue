@@ -12,12 +12,14 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss">
 html {
-  width: 350px;
-  height: 400px;
+    width: 350px;
+    height: 400px;
 }
 body {
+    width: 350px;
+    height: 400px;
     margin: 0;
 }
 </style>

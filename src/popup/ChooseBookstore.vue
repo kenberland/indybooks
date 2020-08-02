@@ -30,7 +30,7 @@ export default Vue.extend({
   methods: {
     getStores(): void {
       if (this.zip.toString().length === 5) {
-        chrome.storage.sync.set({ indystoresZip: this.zip });
+        browser.storage.sync.set({ indystoresZip: this.zip });
 
         axios
           .get('https://api.indybooks.net/v4/stores')
@@ -56,7 +56,7 @@ export default Vue.extend({
     },
   },
   beforeMount() {
-    chrome.storage.sync.get(['indystores'], (obj: any) => {
+    browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
         obj.indystores.stores.forEach((item: any) => {
           this.stores.push(item);

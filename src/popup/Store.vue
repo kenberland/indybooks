@@ -31,7 +31,7 @@ export default Vue.extend({
   },
   methods: {
     setLocal(): void {
-      chrome.storage.sync.get(['indystores'], (obj: any) => {
+      browser.storage.sync.get(['indystores']).then((obj: any) => {
         this.hasBeenStored = false;
 
         if (obj.indystores !== undefined) {
@@ -51,12 +51,12 @@ export default Vue.extend({
           this.syncedStores.push(this.store);
         }
 
-        chrome.storage.sync.set({ indystores: { stores: this.syncedStores } });
+        browser.storage.sync.set({ indystores: { stores: this.syncedStores } });
       });
     },
   },
   beforeMount() {
-    chrome.storage.sync.get(['indystores'], (obj: any) => {
+    browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
         obj.indystores.stores.forEach((item: any) => {
           if (item.id === this.store.id) {

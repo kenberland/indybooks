@@ -39,7 +39,7 @@ export default Vue.extend({
     loadModal(): void {
       this.isOpen = !this.isOpen;
 
-      chrome.storage.sync.get(['indystores'], (obj: any) => {
+      browser.storage.sync.get(['indystores']).then((obj: any) => {
         if (obj.indystores !== undefined) {
           this.localStores = obj.indystores.stores;
         }

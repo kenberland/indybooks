@@ -40,7 +40,8 @@
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
     "vue-cli-plugin-browser-extension": "~0.24.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webextension-polyfill": "^0.6.0"
   },
   "eslintConfig": {
     "root": true,
