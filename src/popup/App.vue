@@ -13,6 +13,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+@import '@/scss/popover.scss';
+
 html {
     width: 350px;
     height: 400px;

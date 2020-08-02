@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class='column is-3 is-offset-2'>
-    <b-switch v-model="isLocal" @input="setLocal" />
+    <b-switch v-model="isLocal" type="is-indySuccess" @input="setLocal" />
   </div>
 </div>
 </template>
@@ -26,7 +26,7 @@ export default Vue.extend({
     return {
       isLocal: false,
       hasBeenStored: false,
-      syncedStores: Array(),
+      syncedStores: [],
     };
   },
   methods: {
@@ -75,6 +75,7 @@ export default Vue.extend({
 .store {
     width: 100%;
 }
+
 .store-address {
     font-size: 0.75em;
 }
