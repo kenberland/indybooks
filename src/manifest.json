@@ -22,7 +22,7 @@
     "128": "icons/128.png"
   },
   "background": {
-    "scripts": [],
+    "scripts": ["js/background.js"],
     "persistent": false
   },
   "devtools_page": "devtools.html",
