@@ -51,4 +51,8 @@ export default Vue.extend({
 .indy-modal-header h4{
   font-size: 1em;
 }
+
+a:hover{
+    text-decoration: none;
+}
 </style>
