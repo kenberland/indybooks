@@ -7,6 +7,11 @@
     <a class='panel-block' v-for="store in stores" :key="store.name">
       <store :store="store" />
     </a>
+    <template v-if="stores.length === 0">
+      <a class='panel-block'>
+        <h1> add a local store! </h1>
+      </a>
+    </template>
   </nav>
 </div>
 </template>
