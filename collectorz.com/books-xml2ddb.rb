@@ -32,7 +32,6 @@ class Xml2DDB
 
 end
 
-# binding.pry; 1
 xmlddb = Xml2DDB.new
 books = xmlddb.import_xml('book_2020-08-27_17-12-22-export.xml')
 
@@ -41,12 +40,16 @@ raise "Oh gosh I can't talk to the db" if ENV['AWS_ACCESS_KEY_ID'].nil? ||
                                           ENV['AWS_ACCESS_KEY_ID'].empty? ||
                                           ENV['AWS_SECRET_ACCESS_KEY'].empty?
 
-
-manager = DynamodbManager.new(
-#  endpoint: 'http://localhost:8000',
+options = {
   region: ENV['AWS_REGION'],
-  table_name: 'indybooks_inventory_production'
-)
+  table_name: "indybooks_inventory_#{ENV['INDY_ENV']}"
+}
+
+if ENV['INDY_ENV'] != 'production'
+  options[:endpoint] = 'http://localhost:8000'
+end
+
+manager = DynamodbManager.new(options)
 
 manager.table # side-effect is to create my table
 
