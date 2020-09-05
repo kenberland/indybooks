@@ -36,8 +36,8 @@ CSV.foreach(CSV_FILE, headers: true) do |row|
   store_h[:zip] = store_h[:zip].to_i
   store_h[:longitude] = store_h[:longitude].to_f
   store_h[:latitude] = store_h[:latitude].to_f
-  store_h[:name].downcase.gsub(/\W/,'') # canonicalize the name
-  store_h[:uuid] = Digest::UUID.uuid_v5(store_h[:name].downcase, "#{store_h[:lat].to_s}#{store_h[:long].to_s}")
+  store_h[:name] = store_h[:name].downcase.gsub(/\W/,'') # canonicalize the name
+  store_h[:uuid] = Digest::UUID.uuid_v5("#{store_h[:latitude].to_s}+#{store_h[:longitude].to_s}+#{store_h[:name]}", 'v1')
   store = Store.new(store_h)
   geohash = manager.put_store(store)
   puts "new store #{store.name}, uuid #{store.uuid}" if geohash
