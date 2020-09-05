@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# gem 'dynamodb_geo', git_source('JA-Soonahn/dynamodb_geo')
+gem 'dynamodb_geo'
+gem 'activesupport'
+
+group :development do
+  gem 'pry'
+  gem 'sinatra'
+end
