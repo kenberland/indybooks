@@ -1,6 +1,6 @@
 <template>
 <div class='store columns is-mobile'>
-  <div class='column is-7'>
+  <div class='column store-details is-7'>
     <div class='store-name'>
       <h4>{{ store.name }}</h4>
     </div>
@@ -8,7 +8,7 @@
       {{ store.address }}
     </div>
   </div>
-  <div class='column is-3 is-offset-2'>
+  <div class='column store-switch is-3'>
     <b-switch v-model="isLocal" type="is-indySuccess" @input="setLocal" />
   </div>
 </div>
@@ -40,7 +40,7 @@ export default Vue.extend({
         }
 
         this.syncedStores.forEach((item: any, index: number) => {
-          if (item.id === this.store.id) {
+          if (this.store.lat === item.lat && this.store.long === item.long) {
             if (!this.isLocal) {
               this.syncedStores.splice(index, 1);
             }
@@ -60,7 +60,7 @@ export default Vue.extend({
     browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
         obj.indystores.stores.forEach((item: any) => {
-          if (item.id === this.store.id) {
+          if (this.store.lat === item.lat && this.store.long === item.long) {
             this.isLocal = true;
           }
         });
@@ -75,6 +75,9 @@ export default Vue.extend({
 <style lang="scss">
 .store {
     width: 100%;
+    .column {
+        padding: 15px;
+    }
 }
 
 .store-address {

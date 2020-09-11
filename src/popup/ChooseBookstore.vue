@@ -1,62 +1,107 @@
 <template>
-<div class='container'>
-  <nav class='panel'>
-    <div class='panel-heading'>
-       <!-- eslint-disable-next-line max-len -->
-       <the-mask class='search-input' :mask="'#####'"  placeholder='Search by Zip' v-model.number="zip" @input="getStores" />
+<div class='choose-bookstore'>
+  <div class='columns is-mobile'>
+    <div class='column no-padding is-9'>
+      <GmapMap
+        ref="mapRef"
+        :center="{lat:center.lat, lng:center.long}"
+        :zoom="13"
+        style="width: 100%; height: 500px"
+        >
+        <GmapMarker
+          v-for="(store, index) in stores"
+          :key="index"
+          :position="{lat:store.lat, lng:store.long}"
+          :clickable="true"
+          :title="store.name"
+          :label="store.name"
+          @click="centerOnPin"
+          />
+      </GmapMap>
     </div>
-    <a class='panel-block' v-for="store in stores" :key="store.name">
-      <store :store="store" />
-    </a>
-  </nav>
+    <div class='column no-padding is-3'>
+      <a class='panel-block'
+         v-for="store in stores"
+         :key="store.name"
+         v-on:click="centerOnStore(store)">
+        <store :store="store" />
+      </a>
+    </div>
+  </div>
 </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import axios from 'axios';
-import { TheMask } from 'vue-the-mask';
 import Store from './Store.vue';
 
 export default Vue.extend({
   name: 'App',
-  components: { Store, TheMask },
+  components: { Store },
   data() {
     const stores:any[] = [];
+    const center = { lat: null, long: null };
+    const myMap = null;
     return {
-      zip: '',
       stores,
+      center,
+      myMap,
     };
   },
   methods: {
-    getStores(): void {
-      if (this.zip.toString().length === 5) {
-        browser.storage.sync.set({ indystoresZip: this.zip });
+    centerOnStore(store: any): void {
+      this.$refs.mapRef.$mapObject.panTo({ lat: store.lat, lng: store.long });
+    },
 
-        axios
-          .get('https://api.indybooks.net/v4/stores')
-          .then((response) => {
-            response.data.stores.forEach((item: any) => {
-              let foundStore = false;
+    centerOnPin(pin: any): void {
+      this.$refs.mapRef.$mapObject.panTo({ lat: pin.latLng.lat(), lng: pin.latLng.lng() });
+    },
 
-              this.stores.forEach((store: any) => {
-                if (store.id === item.id) {
-                  foundStore = true;
-                }
-              });
+    geoSuccess(position: any): void {
+      this.center.lat = position.coords.latitude;
+      this.center.long = position.coords.longitude;
+    },
 
-              if (!foundStore) {
-                this.stores.push(item);
+    geoError(error: any): void {
+      // eslint-disable-next-line
+      console.log(error);
+    },
+
+    getIndybooksPlacesAsync(map: any): void {
+      const lat = map.getCenter().lat();
+      const lng = map.getCenter().lng();
+
+      axios
+        .get(`https://api.indybooks.net/v5/stores/lat/${lat}/long/${lng}`)
+        .then((response) => {
+          response.data.stores.forEach((item: any) => {
+            let foundStore = false;
+
+            this.stores.forEach((store: any) => {
+              if (store.lat === item.lat && store.long === item.long) {
+                foundStore = true;
               }
             });
-          })
-          .catch((error) => {
-            console.log(error);
+
+            if (!foundStore) {
+              this.stores.push(item);
+            }
           });
-      }
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
     },
   },
   beforeMount() {
+    if (!navigator.geolocation) {
+      // eslint-disable-next-line
+      console.log('Location unavailible, can not get location');
+    } else {
+      navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
+    }
     browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
         obj.indystores.stores.forEach((item: any) => {
@@ -65,18 +110,43 @@ export default Vue.extend({
       }
     });
   },
+  mounted() {
+    // I give up, I need a fucking Typescript engineer with 5 years experience
+    // to tell me wtf is wrong here.
+    // I don't know enough to be able to typecast any of this shit.
+    this.$refs.mapRef.$mapPromise.then((map: any) => {
+      this.myMap = map;
+      map.addListener('bounds_changed', () => {
+        setTimeout(this.getIndybooksPlacesAsync, 100, this.myMap);
+      });
+    });
+  },
 });
 </script>
 
 <style lang="scss">
-.search-input {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: normal;
-    background-image: url("../assets/images/Search.png");
-    background-repeat: no-repeat;
-    background-size: 17px;
-    padding-left: 40px;
+.choose-bookstore {
+    .columns {
+        width: 100%;
+        margin: 0;
+
+        .no-padding {
+            padding: 0;
+
+            .store-details {
+                padding: 0;
+            }
+
+            .store-switch {
+                padding: 0 0 0 15px;
+            }
+        }
+    }
+    .panel-block:first-child {
+        border-top: none;
+    }
+    .columns:last-child {
+        margin: 0;
+    }
 }
 </style>

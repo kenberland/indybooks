@@ -14,7 +14,7 @@
     "types": [
       "webpack-env",
       "firefox-webext-browser",
-      "chrome"
+      "chrome",
     ],
     "paths": {
       "@/*": [
