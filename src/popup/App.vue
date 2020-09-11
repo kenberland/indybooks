@@ -4,7 +4,7 @@
   <nav class='panel'>
     <div class='panel-heading'>
       <!-- eslint-disable-next-line max-len -->
-      <the-mask id='search' class='search-input' :mask="'#####'"  placeholder='Search' v-model.number="zip" />
+      <the-mask v-if="currentTab === 'ChooseBookstore'" id='search' class='search-input' :mask="'#####'"  placeholder='Search' v-model.number="zip" />
       <b-button class="my-stores"
                 icon-pack="fas"
                 icon-right="store-alt"

@@ -10,6 +10,7 @@
   </div>
   <div class='column store-switch is-3'>
     <b-switch v-model="isLocal" type="is-indySuccess" @input="setLocal" />
+    {{ index }}
   </div>
 </div>
 </template>
@@ -21,6 +22,7 @@ export default Vue.extend({
   name: 'Store',
   props: {
     store: Object,
+    index: Number,
   },
   data() {
     const syncedStores:any[] = [];

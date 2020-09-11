@@ -13,18 +13,17 @@
           :key="index"
           :position="{lat:store.lat, lng:store.long}"
           :clickable="true"
-          :title="store.name"
-          :label="store.name"
+          :label="index.toString()"
           @click="centerOnPin"
           />
       </GmapMap>
     </div>
     <div class='column no-padding is-3'>
       <a class='panel-block'
-         v-for="store in stores"
+         v-for="(store, index) in stores"
          :key="store.lat"
          v-on:click="centerOnStore(store)">
-        <store :store="store" />
+        <store :store="store" :index="index" />
       </a>
     </div>
   </div>
@@ -51,9 +50,7 @@ export default Vue.extend({
   },
   methods: {
     centerOnStore(store: any): void {
-      // eslint-disable-next-line max-len
       (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: store.lat, lng: store.long });
-      // this.$refs.mapRef.$mapObject.panTo({ lat: store.lat, lng: store.long });
     },
 
     centerOnPin(pin: any): void {
