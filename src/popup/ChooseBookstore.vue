@@ -22,7 +22,7 @@
     <div class='column no-padding is-3'>
       <a class='panel-block'
          v-for="store in stores"
-         :key="store.name"
+         :key="store.lat"
          v-on:click="centerOnStore(store)">
         <store :store="store" />
       </a>
@@ -51,11 +51,13 @@ export default Vue.extend({
   },
   methods: {
     centerOnStore(store: any): void {
-      this.$refs.mapRef.$mapObject.panTo({ lat: store.lat, lng: store.long });
+      // eslint-disable-next-line max-len
+      (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: store.lat, lng: store.long });
+      // this.$refs.mapRef.$mapObject.panTo({ lat: store.lat, lng: store.long });
     },
 
     centerOnPin(pin: any): void {
-      this.$refs.mapRef.$mapObject.panTo({ lat: pin.latLng.lat(), lng: pin.latLng.lng() });
+      (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: pin.latLng.lat(), lng: pin.latLng.lng() });
     },
 
     geoSuccess(position: any): void {
@@ -114,7 +116,7 @@ export default Vue.extend({
     // I give up, I need a fucking Typescript engineer with 5 years experience
     // to tell me wtf is wrong here.
     // I don't know enough to be able to typecast any of this shit.
-    this.$refs.mapRef.$mapPromise.then((map: any) => {
+    (this.$refs.mapRef as GoogleObject).$mapPromise.then((map: any) => {
       this.myMap = map;
       map.addListener('bounds_changed', () => {
         setTimeout(this.getIndybooksPlacesAsync, 100, this.myMap);

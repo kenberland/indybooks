@@ -10,4 +10,14 @@ declare global {
       [elem: string]: any
     }
   }
+
+  interface GoogleMapp extends Object {
+    panTo(latlong: any): void;
+    then(anonfunction: any): void;
+  }
+
+  interface GoogleObject extends Vue {
+    $mapObject: GoogleMapp;
+    $mapPromise: GoogleMapp;
+  }
 }
