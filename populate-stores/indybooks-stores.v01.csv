@@ -1,5 +1,6 @@
 name,city,latitude,longitude,area_code,phone,zip,state,address
 Dog Eared Books,San Francisco,37.7583689,-122.423681,415,2821901,94110,CA,900 Valencia St
 Dog Eared Books,San Francisco,37.7598068,-122.4325156,415,6587015,94114,CA,489 Castro St
-Sleepy Cat Books,Berkeley,37.8648952,-122.2603827,925,2589076,94704,CA,2509 Telegraph Ave
-Moe's Books,Berkeley,37.8649036,-122.2603827,510,8492087,94704,CA,2476 Telegraph Ave
+Sleepy Cat Books,Berkeley,37.864891,-122.258194,925,2589076,94704,CA,2509 Telegraph Ave
+Moe's Books,Berkeley,37.8654993,-122.2587992,510,8492087,94704,CA,2476 Telegraph Ave
+Feldman's Books,Menlo Park,37.4542098,-122.1858884,650,3265300,94025,CA,1170 El Camino Real
