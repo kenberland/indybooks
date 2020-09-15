@@ -25,7 +25,7 @@ export default Vue.extend({
     index: Number,
   },
   data() {
-    const syncedStores:any[] = [];
+    const syncedStores: any[] = [];
     return {
       isLocal: false,
       hasBeenStored: false,

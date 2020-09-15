@@ -39,7 +39,7 @@ export default Vue.extend({
   name: 'App',
   components: { Store },
   data() {
-    const stores:any[] = [];
+    const stores: any[] = [];
     const center = { lat: null, long: null };
     const myMap = null;
     return {
