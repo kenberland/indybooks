@@ -34,7 +34,7 @@ export default Vue.extend({
         console.log('ISBN not found');
       } else {
         // eslint-disable-next-line
-        console.log(`ISBN found: #{this.isbn}`);
+        console.log(`ISBN found: ${this.isbn}`);
       }
     }
   },
