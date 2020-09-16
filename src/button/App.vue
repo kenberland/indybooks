@@ -24,17 +24,22 @@ export default Vue.extend({
     }
 
     if (productDetails) {
-      /* eslint-disable no-new */
       const isbnIndex = productDetails.innerText.search('ISBN-10');
-      // eslint-disable-next-line
-      this.isbn = productDetails.innerText.slice(isbnIndex + 10).match(/\d*$/gm)[0];
+      const remainingDetails = productDetails.innerText.slice(isbnIndex + 10);
+      if (remainingDetails) {
+        const numberEnders = remainingDetails.match(/\d*$/gm);
+        if (numberEnders) {
+          // eslint-disable-next-line
+          this.isbn = numberEnders[0];
 
-      if (this.isbn === '') {
-        // eslint-disable-next-line
-        console.log('ISBN not found');
-      } else {
-        // eslint-disable-next-line
-        console.log(`ISBN found: ${this.isbn}`);
+          if (this.isbn === '') {
+            // eslint-disable-next-line
+            console.log('ISBN not found');
+          } else {
+            // eslint-disable-next-line
+            console.log(`ISBN found: ${this.isbn}`);
+          }
+        }
       }
     }
   },
