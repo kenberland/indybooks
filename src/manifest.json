@@ -26,7 +26,7 @@
     "scripts": ["js/background.js"],
     "persistent": false
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://maps.googleapis.com https://maps.gstatic.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://maps.googleapis.com; object-src 'self'",
   "devtools_page": "devtools.html",
   "browser_action": {
     "default_popup": "popup.html",

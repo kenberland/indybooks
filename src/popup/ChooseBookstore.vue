@@ -54,6 +54,7 @@ export default Vue.extend({
     },
 
     centerOnPin(pin: any): void {
+      // eslint-disable-next-line
       (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: pin.latLng.lat(), lng: pin.latLng.lng() });
     },
 
