@@ -10,6 +10,8 @@ require 'dynamodb_manager'
 ## Constants
 VENDOR_UUID = SecureRandom.uuid
 
+raise 'you must set INDY_ENV' if ENV['INDY_ENV'].nil?
+
 class Xml2DDB
 
   def initialize
