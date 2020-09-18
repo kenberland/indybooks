@@ -10,7 +10,7 @@
   <div id='indyRef' @click="loadModal">
     <div id='indy' class='indy-button'>
       <div id='indyText' class='indy-text'>
-        Buy at your local bookstore
+        Buy Local
       </div>
     </div>
   </div>
