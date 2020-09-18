@@ -55,13 +55,20 @@ manager = DynamodbManager.new(options)
 
 manager.table # side-effect is to create my table
 
-books.each do |book|
+
+
+vendor_uuids = %w/4daced65-0bd0-569f-8376-be542d5ab23b 7b42214a-021a-59ea-a4c7-9f3e049bfabc
+ 6df48734-55c0-5f03-9f84-d28aad46b5c7 5fa6f746-27b6-55b6-9c7d-193fdee21468 fad13e49-7231-52b6-b343-37ce2a5911de/
+
+offset = Integer(rand *vendor_uuids.size)
+books.each_with_index do |book, idx|
   offer = {
     isbn:  book[:isbn],
-    vendor_uuid: SecureRandom.uuid,
-    delivery_promise: (rand > 0.5 ? '24-hour-home-delivery' : 'curbside-pickup'),
+    vendor_uuid: vendor_uuids[ (idx + offset) % vendor_uuids.size],
+    delivery_promise: (rand > 0.5 ? '24hHD' : '1hPU'),
     ask: (Integer(rand*1000)+500)/100.0 # $5 - $15.00
   }
+  puts vendor_uuids[ (idx+offset) % vendor_uuids.size]
   manager.put_offer(offer)
 end
 
