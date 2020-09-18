@@ -7,7 +7,7 @@ import App from './App.vue';
 /* eslint-disable no-new */
 Vue.use(VueGoogleMaps, {
   load: {
-    key: process.env.INDY_GOOGLE_MAPS_API_KEY,
+    key: 'AIzaSyAZDGTSGj-7N7XyN8hmtCAS2C559xIUk9Q',
     libraries: 'places',
   },
   installComponents: true,
