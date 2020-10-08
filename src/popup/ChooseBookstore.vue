@@ -39,6 +39,7 @@ export default Vue.extend({
   name: 'App',
   components: { Store },
   data() {
+    // eslint-disable-next-line
     const stores: any[] = [];
     const center = { lat: null, long: null };
     const myMap = null;
@@ -49,25 +50,30 @@ export default Vue.extend({
     };
   },
   methods: {
+    // eslint-disable-next-line
     centerOnStore(store: any): void {
       (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: store.lat, lng: store.long });
     },
 
+    // eslint-disable-next-line
     centerOnPin(pin: any): void {
       // eslint-disable-next-line
       (this.$refs.mapRef as GoogleObject).$mapObject.panTo({ lat: pin.latLng.lat(), lng: pin.latLng.lng() });
     },
 
+    // eslint-disable-next-line
     geoSuccess(position: any): void {
       this.center.lat = position.coords.latitude;
       this.center.long = position.coords.longitude;
     },
 
+    // eslint-disable-next-line
     geoError(error: any): void {
       // eslint-disable-next-line
       console.log(error);
     },
 
+    // eslint-disable-next-line
     getIndybooksPlacesAsync(map: any): void {
       const lat = map.getCenter().lat();
       const lng = map.getCenter().lng();
@@ -75,9 +81,11 @@ export default Vue.extend({
       axios
         .get(`https://api.indybooks.net/v5/stores/lat/${lat}/long/${lng}`)
         .then((response) => {
+          // eslint-disable-next-line
           response.data.stores.forEach((item: any) => {
             let foundStore = false;
 
+            // eslint-disable-next-line
             this.stores.forEach((store: any) => {
               if (store.uuid === item.uuid) {
                 foundStore = true;
@@ -102,8 +110,10 @@ export default Vue.extend({
     } else {
       navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     }
+    // eslint-disable-next-line
     browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
+        // eslint-disable-next-line
         obj.indystores.stores.forEach((item: any) => {
           this.stores.push(item);
         });
@@ -114,6 +124,7 @@ export default Vue.extend({
     // I give up, I need a fucking Typescript engineer with 5 years experience
     // to tell me wtf is wrong here.
     // I don't know enough to be able to typecast any of this shit.
+    // eslint-disable-next-line
     (this.$refs.mapRef as GoogleObject).$mapPromise.then((map: any) => {
       this.myMap = map;
       map.addListener('bounds_changed', () => {

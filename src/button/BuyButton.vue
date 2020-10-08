@@ -31,26 +31,34 @@ export default Vue.extend({
     productName: String,
   },
   data() {
+    // eslint-disable-next-line
+    const localStores: any[] = [];
     return {
       isOpen: false,
-      localStores: [],
+      localStores,
     };
   },
   methods: {
     loadModal(): void {
+      // eslint-disable-next-line
+      var stores = [] as any[];
+      // eslint-disable-next-line
       browser.storage.sync.get(['indystores']).then((obj: any) => {
         if (obj.indystores !== undefined) {
-          this.localStores = obj.indystores.stores;
+          stores = obj.indystores.stores;
 
           // https://api.indybooks.net/v5/offers/isbn/9780679748267/vendors/6df48734-55c0-5f03-9f84-d28aad46b5c7,4daced65-0bd0-569f-8376-be542d5ab23b
           axios
-            .get(`https://api.indybooks.net/v5/offers/isbn/${this.isbn}/vendors/${this.localStores.map(store => store.uuid).join()}`)
+            .get(`https://api.indybooks.net/v5/offers/isbn/${this.isbn}/vendors/${stores.map(this.getUuid).join()}`)
             .then((response) => {
+              // eslint-disable-next-line
               response.data.offers.forEach((item: any) => {
-                let foundIndex = this.localStores.findIndex(store => store.uuid === item.vendor_uuid);
-                let newStore = this.localStores[foundIndex];
+                // eslint-disable-next-line
+                const foundIndex = stores.findIndex((store: any) => store.uuid === item.vendor_uuid);
+                const newStore = stores[foundIndex];
                 newStore.ask = item.ask;
-                this.localStores[foundIndex] = newStore;
+
+                this.localStores.push(newStore);
               });
               this.isOpen = !this.isOpen;
             })
@@ -63,6 +71,10 @@ export default Vue.extend({
           this.isOpen = !this.isOpen;
         }
       });
+    },
+    // eslint-disable-next-line
+    getUuid(store: any): string {
+      return store.uuid;
     },
   },
 });
