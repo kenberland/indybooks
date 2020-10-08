@@ -1,11 +1,16 @@
 <template>
 <div class='store columns is-mobile'>
-  <div class='column is-6 is-offset-1'>
+  <div class='column is-4 is-offset-1'>
     <div class='store-name'>
       <h4>{{ store.name }}</h4>
     </div>
     <div class='store-address'>
       {{ store.address }}
+    </div>
+  </div>
+  <div class='column is-2'>
+    <div class='store-ask'>
+      <h4>${{ store.ask }}</h4>
     </div>
   </div>
   <div class='column is-3 is-offset-2'>

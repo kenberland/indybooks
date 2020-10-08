@@ -79,7 +79,7 @@ export default Vue.extend({
             let foundStore = false;
 
             this.stores.forEach((store: any) => {
-              if (store.lat === item.lat && store.long === item.long) {
+              if (store.uuid === item.uuid) {
                 foundStore = true;
               }
             });

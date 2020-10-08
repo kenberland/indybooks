@@ -4,9 +4,11 @@
     <div class='indy-modal-header panel-heading'>
       <div><h4>Buy Local: {{ productName }}</h4></div>
     </div>
-    <a class='panel-block' v-for="store in stores" :key="store.name">
-      <store :store="store" />
-    </a>
+    <template v-for="store in stores">
+      <a class='panel-block' v-if="store.ask">
+        <store :store="store" />
+      </a>
+    </template>
     <template v-if="stores.length === 0">
       <a class='panel-block'>
         <h1> add a local store! </h1>
@@ -18,12 +20,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import axios from 'axios';
 import Store from './Store.vue';
 
 export default Vue.extend({
   name: 'BuyModal',
   components: { Store },
   props: {
+    isbn: String,
     stores: Array,
     productName: String,
   },

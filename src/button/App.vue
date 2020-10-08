@@ -24,10 +24,10 @@ export default Vue.extend({
     }
 
     if (productDetails) {
-      const isbnIndex = productDetails.innerText.search('ISBN-10');
+      const isbnIndex = productDetails.innerText.search('ISBN-13');
       const remainingDetails = productDetails.innerText.slice(isbnIndex + 10);
       if (remainingDetails) {
-        const numberEnders = remainingDetails.match(/\d*$/gm);
+        const numberEnders = remainingDetails.match(/\d*-\d*$/gm);
         if (numberEnders) {
           // eslint-disable-next-line
           this.isbn = numberEnders[0];
@@ -37,6 +37,7 @@ export default Vue.extend({
             console.log('ISBN not found');
           } else {
             // eslint-disable-next-line
+            this.isbn = this.isbn.replace('-','');
             console.log(`ISBN found: ${this.isbn}`);
           }
         }

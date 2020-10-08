@@ -3,7 +3,7 @@
   <transition name='modal'>
     <div v-if="isOpen">
       <div class='overlay' @click.self="isOpen = false;">
-        <buy-modal :stores="localStores" :productName="productName" />
+        <buy-modal :isbn="isbn" :stores="localStores" :productName="productName" />
       </div>
     </div>
   </transition>
@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import axios from 'axios';
 import BuyModal from './BuyModal.vue';
 
 // localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
@@ -37,11 +38,29 @@ export default Vue.extend({
   },
   methods: {
     loadModal(): void {
-      this.isOpen = !this.isOpen;
-
       browser.storage.sync.get(['indystores']).then((obj: any) => {
         if (obj.indystores !== undefined) {
           this.localStores = obj.indystores.stores;
+
+          // https://api.indybooks.net/v5/offers/isbn/9780679748267/vendors/6df48734-55c0-5f03-9f84-d28aad46b5c7,4daced65-0bd0-569f-8376-be542d5ab23b
+          axios
+            .get(`https://api.indybooks.net/v5/offers/isbn/${this.isbn}/vendors/${this.localStores.map(store => store.uuid).join()}`)
+            .then((response) => {
+              response.data.offers.forEach((item: any) => {
+                let foundIndex = this.localStores.findIndex(store => store.uuid === item.vendor_uuid);
+                let newStore = this.localStores[foundIndex];
+                newStore.ask = item.ask;
+                this.localStores[foundIndex] = newStore;
+              });
+              this.isOpen = !this.isOpen;
+            })
+            .catch((error) => {
+              // eslint-disable-next-line
+              console.log(error);
+              this.isOpen = !this.isOpen;
+            });
+        } else {
+          this.isOpen = !this.isOpen;
         }
       });
     },

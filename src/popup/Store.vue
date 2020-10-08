@@ -42,7 +42,7 @@ export default Vue.extend({
         }
 
         this.syncedStores.forEach((item: any, index: number) => {
-          if (this.store.lat === item.lat && this.store.long === item.long) {
+          if (this.store.uuid === item.uuid) {
             if (!this.isLocal) {
               this.syncedStores.splice(index, 1);
             }
@@ -62,7 +62,7 @@ export default Vue.extend({
     browser.storage.sync.get(['indystores']).then((obj: any) => {
       if (obj.indystores !== undefined) {
         obj.indystores.stores.forEach((item: any) => {
-          if (this.store.lat === item.lat && this.store.long === item.long) {
+          if (this.store.uuid === item.uuid) {
             this.isLocal = true;
           }
         });
