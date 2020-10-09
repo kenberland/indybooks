@@ -57,6 +57,7 @@ export default Vue.extend({
                 const foundIndex = stores.findIndex((store: any) => store.uuid === item.vendor_uuid);
                 const newStore = stores[foundIndex];
                 newStore.ask = item.ask;
+                newStore.delivery_promise = item.delivery_promise;
 
                 this.localStores.push(newStore);
               });
