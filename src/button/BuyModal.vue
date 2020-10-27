@@ -5,7 +5,7 @@
       <div><h4>Buy Local: {{ productName }}</h4></div>
     </div>
     <template v-for="store in stores">
-      <a class='panel-block' v-if="store.ask">
+      <a class='panel-block' v-if="store.promise">
         <store :store="store" />
       </a>
     </template>

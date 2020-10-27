@@ -42,6 +42,7 @@ export default Vue.extend({
     loadModal(): void {
       // eslint-disable-next-line
       var stores = [] as any[];
+      this.localStores = [];
       // eslint-disable-next-line
       browser.storage.sync.get(['indystores']).then((obj: any) => {
         if (obj.indystores !== undefined) {
@@ -56,8 +57,7 @@ export default Vue.extend({
                 // eslint-disable-next-line
                 const foundIndex = stores.findIndex((store: any) => store.uuid === item.vendor_uuid);
                 const newStore = stores[foundIndex];
-                newStore.ask = item.ask;
-                newStore.delivery_promise = item.delivery_promise;
+                newStore.promise = item;
 
                 this.localStores.push(newStore);
               });

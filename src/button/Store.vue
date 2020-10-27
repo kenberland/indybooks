@@ -10,8 +10,8 @@
   </div>
   <div class='column is-2'>
     <div class='store-ask'>
-      <h4>${{ store.ask }}</h4>
-      <h4>({{ store.delivery_promise }})</h4>
+      <h4>${{ store.promise.ask }}</h4>
+      <h4>({{ store.promise.delivery_promise }})</h4>
     </div>
   </div>
   <div class='column is-3 is-offset-2'>
