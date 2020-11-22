@@ -15,22 +15,63 @@
     </div>
   </div>
   <div class='column is-3 is-offset-2'>
-    <div class='indy-button'>
-      <div class='indy-text'>
-        Buy Local!
-      </div>
-    </div>
+    <div id="paypal-button-container"></div>
   </div>
 </div>
 </template>
 
 <script lang="ts">
+import paypal from 'paypal-checkout';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Store',
   props: {
     store: Object,
+  },
+  mounted() {
+    paypal.Button.render({
+      env: 'sandbox',
+      style: {
+        label: 'paypal',
+        size: 'responsive',
+        shape: 'rect',
+      },
+      client: {
+        sandbox:    'AZzahVK6f1JiZtq7J_jBNIC6ZIyzE9Fi9Pp9ITMnhL6lgeLaJRVxJUsStutj_xDlPecZxH0W7nWCaynU',
+        production: 'sb',
+      },
+      payment: (data, actions) => (
+        actions.payment.create({
+          payment: {
+            transactions: [
+              {
+                amount: { total: 10, currency: 'USD' },
+              },
+            ],
+          },
+        })
+      ),
+      onAuthorize: (data, options) => {
+        // eslint-disable-next-line
+        console.log('authorized');
+        // eslint-disable-next-line
+        console.log(data);
+        // eslint-disable-next-line
+        console.log(options);
+      },
+      onCancel: (data) => {
+        // eslint-disable-next-line
+        console.log(data);
+        // eslint-disable-next-line
+        console.log('Payment Cancelled');
+      },
+      onError: (err) => {
+        // eslint-disable-next-line
+        console.error(err);
+        this.error = 'An error occurred while processing the paypal payment.';
+      },
+    }, '#paypal-button-container');
   },
 });
 </script>

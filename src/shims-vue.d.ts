@@ -5,3 +5,5 @@ declare module '*.vue' {
 }
 
 declare module "vue2-google-maps"
+
+declare module 'paypal-checkout'

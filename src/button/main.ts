@@ -5,7 +5,6 @@ import 'buefy/dist/buefy.css';
 import App from './App.vue';
 
 /* eslint-disable no-new */
-
 window.onload = () => {
   const newButton = document.createElement('div');
   newButton.setAttribute('id', 'indyButton');
