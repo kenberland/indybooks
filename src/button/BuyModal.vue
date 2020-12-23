@@ -4,15 +4,22 @@
     <div class='indy-modal-header panel-heading'>
       <div><h4>Buy Local: {{ productName }}</h4></div>
     </div>
-    <template v-for="store in stores">
-      <a class='panel-block' v-if="store.promise">
-        <store :store="store" />
-      </a>
-    </template>
-    <template v-if="stores.length === 0">
+    <template v-if="successfulPurchase">
       <a class='panel-block'>
-        <h1> add a local store! </h1>
-      </a>
+        <h1> Thank you for the purchase, your invoice and shipping info have been emailed to you. </h1>
+     </a>
+    </template>
+    <template v-else>
+      <template v-for="store in stores">
+        <a class='panel-block' v-if="store.promise">
+          <store v-on:successfulPurchase=displaySuccess :store="store" />
+        </a>
+      </template>
+      <template v-if="stores.length === 0">
+        <a class='panel-block'>
+          <h1> add a local store! </h1>
+        </a>
+    </template>
     </template>
   </nav>
 </div>
@@ -30,6 +37,16 @@ export default Vue.extend({
     isbn: String,
     stores: Array,
     productName: String,
+  },
+  data () {
+    return {
+      successfulPurchase: false,
+    }
+  },
+  methods: {
+    displaySuccess() {
+      this.successfulPurchase = true;
+    }
   },
 });
 </script>

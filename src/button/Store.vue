@@ -38,21 +38,24 @@ export default Vue.extend({
         shape: 'rect',
       },
       client: {
-        sandbox:    'AZzahVK6f1JiZtq7J_jBNIC6ZIyzE9Fi9Pp9ITMnhL6lgeLaJRVxJUsStutj_xDlPecZxH0W7nWCaynU',
+        sandbox: 'AZzahVK6f1JiZtq7J_jBNIC6ZIyzE9Fi9Pp9ITMnhL6lgeLaJRVxJUsStutj_xDlPecZxH0W7nWCaynU',
         production: 'sb',
       },
-      payment: (data, actions) => (
+      // eslint-disable-next-line
+      payment: (data: any, actions: any) => (
         actions.payment.create({
           payment: {
             transactions: [
               {
-                amount: { total: 10, currency: 'USD' },
+                amount: { total: this.store.promise.ask, currency: 'USD' },
               },
             ],
           },
         })
       ),
-      onAuthorize: (data, options) => {
+      // eslint-disable-next-line
+      onAuthorize: (data: any, options: any) => {
+        this.$emit('successfulPurchase', data);
         // eslint-disable-next-line
         console.log('authorized');
         // eslint-disable-next-line
@@ -60,16 +63,17 @@ export default Vue.extend({
         // eslint-disable-next-line
         console.log(options);
       },
-      onCancel: (data) => {
+      // eslint-disable-next-line
+      onCancel: (data: any) => {
         // eslint-disable-next-line
         console.log(data);
         // eslint-disable-next-line
         console.log('Payment Cancelled');
       },
-      onError: (err) => {
+      // eslint-disable-next-line
+      onError: (err: any) => {
         // eslint-disable-next-line
         console.error(err);
-        this.error = 'An error occurred while processing the paypal payment.';
       },
     }, '#paypal-button-container');
   },
