@@ -1,15 +1,13 @@
 <template>
 <div class='indy-modal'>
-  <nav class='panel'>
-    <div class='indy-modal-header panel-heading'>
-      <div><h4>Buy Local: {{ productName }}</h4></div>
-    </div>
-    <template v-if="successfulPurchase">
-      <a class='panel-block'>
-        <h1> Thank you for the purchase, your invoice and shipping info have been emailed to you. </h1>
-     </a>
-    </template>
-    <template v-else>
+  <template v-if="successfulPurchase">
+    <success :purchaseInfo="purchaseInfo"/>
+  </template>
+  <template v-else>
+    <nav class='panel'>
+      <div class='indy-modal-header panel-heading'>
+        <div><h4>Buy Local: {{ productName }}</h4></div>
+      </div>
       <template v-for="store in stores">
         <a class='panel-block' v-if="store.promise">
           <store v-on:successfulPurchase=displaySuccess :store="store" />
@@ -19,9 +17,9 @@
         <a class='panel-block'>
           <h1> add a local store! </h1>
         </a>
-    </template>
-    </template>
-  </nav>
+      </template>
+    </nav>
+  </template>
 </div>
 </template>
 
@@ -29,10 +27,11 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Store from './Store.vue';
+import Success from './Success.vue';
 
 export default Vue.extend({
   name: 'BuyModal',
-  components: { Store },
+  components: { Store, Success },
   props: {
     isbn: String,
     stores: Array,
@@ -41,10 +40,12 @@ export default Vue.extend({
   data () {
     return {
       successfulPurchase: false,
+      purchaseInfo: null,
     }
   },
   methods: {
-    displaySuccess() {
+    displaySuccess(data: any) {
+      this.purchaseInfo = data;
       this.successfulPurchase = true;
     }
   },
