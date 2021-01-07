@@ -45,6 +45,7 @@ export default Vue.extend({
       this.localStores = [];
       // eslint-disable-next-line
       browser.storage.sync.get(['indystores']).then((obj: any) => {
+        console.log(obj);
         if (obj.indystores !== undefined) {
           stores = obj.indystores.stores;
 

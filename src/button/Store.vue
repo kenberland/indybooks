@@ -9,8 +9,8 @@
     </div>
   </div>
   <div class='column is-2'>
-    <div class='store-ask'>
-      <h4>${{ store.promise.ask }}</h4>
+    <div class='store-price'>
+      <h4>${{ store.promise.price }}</h4>
       <h4>({{ store.promise.delivery_promise }})</h4>
     </div>
   </div>
@@ -47,7 +47,7 @@ export default Vue.extend({
           payment: {
             transactions: [
               {
-                amount: { total: this.store.promise.ask, currency: 'USD' },
+                amount: { total: this.store.promise.price, currency: 'USD' },
               },
             ],
           },

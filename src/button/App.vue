@@ -24,10 +24,10 @@ export default Vue.extend({
     }
 
     if (productDetails) {
-      const isbnIndex = productDetails.innerText.search('ISBN-13');
+      const isbnIndex = productDetails.innerText.search('ISBN-10');
       const remainingDetails = productDetails.innerText.slice(isbnIndex + 10);
       if (remainingDetails) {
-        const numberEnders = remainingDetails.match(/\d*-\d*$/gm);
+        const numberEnders = remainingDetails.match(/\d*$/gm);
         if (numberEnders) {
           // eslint-disable-next-line
           this.isbn = numberEnders[0];
