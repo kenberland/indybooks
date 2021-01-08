@@ -22,7 +22,6 @@ import Vue from 'vue';
 import axios from 'axios';
 import BuyModal from './BuyModal.vue';
 
-// localStores is going to be loaded via an endpoint soon.  Right now it's a static array.
 export default Vue.extend({
   name: 'BuyButton',
   components: { BuyModal },
@@ -39,7 +38,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    anyStores: function() {
+    anyStores(): boolean {
       return this.localStores.length > 0;
     }
   },
