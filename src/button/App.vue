@@ -4,6 +4,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import BuyButton from './BuyButton.vue';
 
 export default Vue.extend({
@@ -18,6 +20,19 @@ export default Vue.extend({
   beforeMount() {
     const productDetails = document.getElementById('detailBullets_feature_div');
     const productName = document.getElementById('productTitle');
+    let customerUuid = null;
+
+    browser.storage.sync.get(['indybuyUuid']).then((obj: any) => {
+      customerUuid = obj.indybuyUuid;
+      if (customerUuid === null) {
+        browser.storage.sync.set({ indybuyUuid: uuidv4() });
+      }
+
+      axios.get(`https://api.indybooks.net/v5/purchases/${customerUuid}`)
+        .then((response) => {
+          console.log(response);
+        });
+    });
 
     if (productName) {
       this.productName = productName.textContent || '';

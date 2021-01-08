@@ -37,17 +37,36 @@ export default Vue.extend({
     stores: Array,
     productName: String,
   },
-  data () {
+  data() {
     return {
       successfulPurchase: false,
       purchaseInfo: null,
-    }
+    };
   },
   methods: {
     displaySuccess(data: any) {
-      this.purchaseInfo = data;
+      this.purchaseInfo = data.paypalData;
       this.successfulPurchase = true;
-    }
+
+      browser.storage.sync.get(['indybuyUuid']).then((obj: any) => {
+        const customerUuid = obj.indybuyUuid;
+        axios.post('https://api.indybooks.net/v5/purchases', {
+          purchase: {
+            customer_uuid: customerUuid,
+            vendor_uuid: data.storeData.uuid,
+            isbn: data.storeData.promise.isbn,
+            price: data.storeData.promise.price,
+            delivery_promise: data.storeData.promise.delivery_promise,
+          }
+        })
+        .then((response: any) => {
+          console.log(response);
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+      });
+    },
   },
 });
 </script>

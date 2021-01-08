@@ -55,7 +55,11 @@ export default Vue.extend({
       ),
       // eslint-disable-next-line
       onAuthorize: (data: any, options: any) => {
-        this.$emit('successfulPurchase', data);
+        const purchaseData = {
+          paypalData: data,
+          storeData: this.store,
+        };
+        this.$emit('successfulPurchase', purchaseData);
         // eslint-disable-next-line
         console.log('authorized');
         // eslint-disable-next-line
