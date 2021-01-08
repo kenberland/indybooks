@@ -10,7 +10,12 @@
   <div v-if="anyStores" id='indyRef' @click="loadModal">
     <div id='indy' class='indy-button'>
       <div id='indyText' class='indy-text'>
-        Buy Local
+        <template v-if="buyAgain">
+          Buy Again
+        </template>
+        <template v-else>
+          Buy Local
+        </template>
       </div>
     </div>
   </div>
@@ -28,6 +33,10 @@ export default Vue.extend({
   props: {
     isbn: String,
     productName: String,
+    buyAgain: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     // eslint-disable-next-line

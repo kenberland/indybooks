@@ -1,5 +1,5 @@
 <template>
-<buy-button v-if="isbn" :isbn="isbn" :productName="productName" />
+<buy-button v-if="isbn" :isbn="isbn" :productName="productName" :buyAgain="buyAgain" />
 </template>
 
 <script lang="ts">
@@ -15,6 +15,7 @@ export default Vue.extend({
     return {
       isbn: '',
       productName: '',
+      buyAgain: false
     };
   },
   beforeMount() {
@@ -28,36 +29,39 @@ export default Vue.extend({
         browser.storage.sync.set({ indybuyUuid: uuidv4() });
       }
 
-      axios.get(`https://api.indybooks.net/v5/purchases/${customerUuid}`)
+      axios.get(`https://api.indybooks.net/v5/purchases/customer_uuid/${customerUuid}`)
         .then((response) => {
-          console.log(response);
+          if (productName) {
+            this.productName = productName.textContent || '';
+          }
+
+          if (productDetails) {
+            const isbnIndex = productDetails.innerText.search('ISBN-10');
+            const remainingDetails = productDetails.innerText.slice(isbnIndex + 10);
+            if (remainingDetails) {
+              const numberEnders = remainingDetails.match(/\d*$/gm);
+              if (numberEnders) {
+                // eslint-disable-next-line
+                this.isbn = numberEnders[0];
+
+                if (this.isbn === '') {
+                  // eslint-disable-next-line
+                  console.log('ISBN not found');
+                } else {
+                  // eslint-disable-next-line
+                  this.isbn = this.isbn.replace('-','');
+                  console.log(`ISBN found: ${this.isbn}`);
+                }
+              }
+            }
+          }
+          const purchased = response.data.purchases.some(purchase => {
+            return purchase.isbn === this.isbn
+          });
+
+          this.buyAgain = purchased;
         });
     });
-
-    if (productName) {
-      this.productName = productName.textContent || '';
-    }
-
-    if (productDetails) {
-      const isbnIndex = productDetails.innerText.search('ISBN-10');
-      const remainingDetails = productDetails.innerText.slice(isbnIndex + 10);
-      if (remainingDetails) {
-        const numberEnders = remainingDetails.match(/\d*$/gm);
-        if (numberEnders) {
-          // eslint-disable-next-line
-          this.isbn = numberEnders[0];
-
-          if (this.isbn === '') {
-            // eslint-disable-next-line
-            console.log('ISBN not found');
-          } else {
-            // eslint-disable-next-line
-            this.isbn = this.isbn.replace('-','');
-            console.log(`ISBN found: ${this.isbn}`);
-          }
-        }
-      }
-    }
   },
 });
 </script>
